@@ -36,8 +36,8 @@ async fn main() -> Result<(), std::io::Error> {
                     None,                             // limit: Option<i32>,
                     None,                             // offset: Option<i32>,
                     None,                             // status: Option<&str>,
-                    Some(String::from("2020-01-01")), // start: Option<String>,
-                    Some(String::from("2020-12-31")), // end: Option<String>,
+                    Some(String::from("2020-12-31")), // start: Option<String>,
+                    Some(String::from("2021-01-02")), // end: Option<String>,
                     None,                             // search: Option<&str>,
                 )
                 .await

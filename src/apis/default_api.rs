@@ -87,16 +87,10 @@ pub enum SubmitOnboardingDataError {
 /// struct for typed errors of method `transactions1`
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
-pub enum Transactions1Error {
+pub enum TransactionsError {
     UnknownValue(serde_json::Value),
 }
 
-/// struct for typed errors of method `transactions2`
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(untagged)]
-pub enum Transactions2Error {
-    UnknownValue(serde_json::Value),
-}
 
 /// Retrieve information about cards associated with a specific account
 pub async fn accountidcards(
@@ -548,7 +542,7 @@ pub async fn list_transactions(
     start: Option<String>,
     end: Option<String>,
     search: Option<&str>,
-) -> Result<Transactions, Error<Transactions1Error>> {
+) -> Result<Transactions, Error<TransactionsError>> {
     let local_var_client = &configuration.client;
 
     let local_var_uri_str = format!(
@@ -602,7 +596,7 @@ pub async fn list_transactions(
         let transactions: Transactions = serde_json::from_str(&local_var_content)?;
         Ok(transactions)
     } else {
-        let local_var_entity: Option<Transactions1Error> =
+        let local_var_entity: Option<TransactionsError> =
             serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent {
             status: local_var_status,
@@ -618,7 +612,7 @@ pub async fn transactions2(
     configuration: &configuration::Configuration,
     id: &str,
     inline_object2: Option<crate::models::InlineObject2>,
-) -> Result<(), Error<Transactions2Error>> {
+) -> Result<(), Error<TransactionsError>> {
     let local_var_client = &configuration.client;
 
     let local_var_uri_str = format!(
@@ -649,7 +643,7 @@ pub async fn transactions2(
     if local_var_status.is_success() {
         Ok(())
     } else {
-        let local_var_entity: Option<Transactions2Error> =
+        let local_var_entity: Option<TransactionsError> =
             serde_json::from_str(&local_var_content).ok();
         let local_var_error = ResponseContent {
             status: local_var_status,
